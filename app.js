@@ -79,7 +79,6 @@ qwerty.addEventListener("click", (e) => {
   checkWin();
 });
 
-
 //checkWin function to see if they won
 function checkWin() {
   const letters = document.querySelectorAll(".letter");
