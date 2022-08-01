@@ -3,7 +3,6 @@ const qwerty = document.getElementById("qwerty");
 const phrase = document.getElementById("phrase");
 const overlay = document.getElementById("overlay");
 const start = document.querySelector(".btn__reset");
-const winLose = document.querySelector("ul");
 const h3 = document.createElement("h3");
 const ul = document.querySelector("ul");
 //Counter for missed attempts
@@ -79,6 +78,8 @@ qwerty.addEventListener("click", (e) => {
   }
   checkWin();
 });
+
+
 //checkWin function to see if they won
 function checkWin() {
   const letters = document.querySelectorAll(".letter");
@@ -86,14 +87,12 @@ function checkWin() {
   if (shows.length === letters.length) {
     overlay.style.display = "flex";
     overlay.className = "win";
-
     start.textContent = "Restart?";
     overlay.appendChild(h3);
     h3.textContent = "You Won";
   } else if (missed > 4) {
     overlay.style.display = "flex";
     overlay.className = "lose";
-
     start.textContent = "Try Again?";
     overlay.appendChild(h3);
     h3.textContent = "You Lose";
