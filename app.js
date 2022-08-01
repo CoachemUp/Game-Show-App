@@ -3,7 +3,9 @@ const qwerty = document.getElementById("qwerty");
 const phrase = document.getElementById("phrase");
 const overlay = document.getElementById("overlay");
 const start = document.querySelector(".btn__reset");
-
+const winLose = document.querySelector("ul");
+const h3 = document.createElement("h3");
+const ul = document.querySelector("ul");
 //Counter for missed attempts
 let missed = 0;
 
@@ -14,13 +16,14 @@ start.addEventListener("click", () => {
 
 //Phrases for game
 let phrases = [
-  "May the Force be with you",
-  "Houston we have a problem",
-  "I am your father",
-  "Just keep swimming",
-  "Bond James Bond",
+  "may the force be with you",
+  "houston we have a problem",
+  "i am your father",
+  "just keep swimming",
+  "bond james bond",
 ];
 
+//Create a getRandomPhraseAsArray function
 function getRandomPhraseAsArray(arr) {
   const phraseIndex = Math.floor(Math.random() * phrases.length);
   const randomPhrase = phrases[phraseIndex];
@@ -29,11 +32,8 @@ function getRandomPhraseAsArray(arr) {
 }
 
 const phraseArray = getRandomPhraseAsArray(phrases);
-
-console.log(phraseArray)
-
-
-
+addPhraseToDisplay(phraseArray);
+//console.log(phraseArray);
 
 //Set the game display
 function addPhraseToDisplay(arr) {
@@ -77,4 +77,34 @@ qwerty.addEventListener("click", (e) => {
     const letterCheck = e.target.textContent;
     const letterFound = checkLetter(letterCheck);
   }
+  checkWin();
 });
+//checkWin function to see if they won
+function checkWin() {
+  const letters = document.querySelectorAll(".letter");
+  const shows = document.querySelectorAll(".show");
+  if (shows.length === letters.length) {
+    overlay.style.display = "flex";
+    overlay.className = "win";
+
+    start.textContent = "Restart?";
+    overlay.appendChild(h3);
+    h3.textContent = "You Won";
+  } else if (missed > 4) {
+    overlay.style.display = "flex";
+    overlay.className = "lose";
+
+    start.textContent = "Try Again?";
+    overlay.appendChild(h3);
+    h3.textContent = "You Lose";
+  }
+  resetGame();
+}
+
+// Reset Game
+function resetGame() {
+  start.addEventListener("click", (e) => {
+    ul.requestFullscreen.display = "none";
+    location.reload();
+  });
+}
